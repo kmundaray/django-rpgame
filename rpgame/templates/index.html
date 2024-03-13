@@ -1,0 +1,84 @@
+<!-- rpgame/templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}" />
+    <!-- Stylesheet -->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+    <title>RP Game</title>
+</head>
+
+<body>
+
+    <h1>Welcome to the RP Game project</h1>
+
+    {% comment %}
+    Django template tags are enclosed in {% and %}.
+    Use these tags to insert dynamic content or perform logic.
+    {% endcomment %}
+
+    <!-- Form for user input -->
+    <form method="post" action="{% url 'loginform' %}">
+        {% csrf_token %}
+        <label for="user_login">Login:</label>
+        <input type="text" id="user_login" name="user_login">
+        <label for="user_password">Password:</label>
+        <input type="text" id="user_password" name="user_password">
+        <div>
+            <button type="reset" id="resetform">Cancel</button>
+            <button type="submit" id="submitlogin">Login</button>
+        </div>
+    </form>
+
+    <!-- Display form validation errors -->
+    <div class="loginmessage">
+        {% if form_not_valid %}
+        <p>{{ form_not_valid }}</p>
+        {% endif %}
+    </div>
+
+
+    <!-- Some other content -->
+
+
+
+
+
+
+
+    <!-- // WebSocket connection script // Javascript code // -->
+    <script>
+        // Clear the session on page load
+        sessionStorage.clear();
+    </script>
+    <script>
+        // WebSocket connection code (if applicable)
+        const socket = new WebSocket('ws://' + window.location.host + '/ws/RpGameConsumer/');
+
+        // Ensure the WebSocket Connection is Open
+        socket.onopen = function (event) {
+            console.log('WebSocket connection opened:', event);
+            // You can send an initial message if needed
+            // socket.send('Hello, WebSocket!');
+        };
+
+        socket.onclose = function (event) {
+            // Handle WebSocket closure, if needed
+            console.log('WebSocket closed:', event);
+        };
+    </script>
+
+    <!-- Bootstrap JavaScript plugins -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
+</body>
+
+</html>

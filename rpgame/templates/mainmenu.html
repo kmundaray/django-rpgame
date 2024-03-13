@@ -1,0 +1,121 @@
+<!-- rpgame/templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}" />
+    <!-- Stylesheet -->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+
+    <title>RP Game - Main Menu</title>
+</head>
+
+<body>
+
+    <!-- // Reload button // -->
+    <button id="reloadButton">Refresh Page</button>
+
+    <h1>Main Menu</h1>
+
+    {% comment %}
+    Django template tags are enclosed in {% and %}.
+    Use these tags to insert dynamic content or perform logic.
+    {% endcomment %}
+
+
+    <div class="TEST">
+        {% if user_name %}
+        <p>Player: {{ user_name }}</p>
+        {% endif %}
+        {% if user_game_id %}
+        <p>Game ID: {{ user_game_id }}</p>
+        {% endif %}
+    </div>
+
+    <!-- Main menu options -->
+
+
+    <section class="col col-md-4 col-xl-2 mt-4">
+        <form action="{% url 'hostgame' %}" method="get">
+            {% csrf_token %}
+            <button type="submit" id="hostgame">Host a Game</button>
+        </form>
+    </section>
+
+    <section class="col col-md-4 col-xl-2 mt-4">
+        <form action="{% url 'joingame' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" id="joingamebutton">Join a Game</button>
+        </form>
+    </section>
+
+    <!-- Clears session state -->
+    <div class="col col-md-4 col-xl-2 mt-4">
+        <form action="{% url 'clearsession' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" id="logoutbutton">Log Out</button>
+        </form>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <!-- // WebSocket connection script // Javascript code // -->
+    <script>
+        // Clear the session on page load
+        sessionStorage.clear();
+
+        // WebSocket connection code (if applicable)
+        const socket = new WebSocket('ws://' + window.location.host + '/ws/RpGameConsumer/');
+
+        // Ensure the WebSocket Connection is Open
+        socket.onopen = function (event) {
+            console.log('WebSocket connection opened:', event);
+            // You can send an initial message if needed
+            // socket.send('Hello, WebSocket!');
+        };
+
+        // Function to reload the page
+        function reloadPage() {
+            location.reload();
+        }
+
+        // Event listener for the button click
+        document.getElementById('reloadButton').onclick = function () {
+            reloadPage();
+        };
+
+        // Function to reload the page every 5 seconds (adjust as needed)
+        // function autoRefresh() {
+        //     location.reload();
+        // }
+
+        // SetInterval to call the autoRefresh function every 5000 milliseconds (5 seconds)
+        // setInterval(autoRefresh, 5000);
+
+        socket.onclose = function (event) {
+            // Handle WebSocket closure, if needed
+            console.log('WebSocket closed:', event);
+        };
+
+    </script>
+
+    <!-- Bootstrap JavaScript plugins -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
+</body>
+
+</html>
