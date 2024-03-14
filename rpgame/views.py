@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from . import login
-from django.http import HttpRequest
+from . import login, host
+# from django.http import HttpRequest
 # Create your views here.
 
 # Page form receives user input
@@ -57,4 +57,19 @@ def joingame(request):
 def hostgame(request):
     if request.method == 'GET':
         return render(request, 'hostgame.html', {'user_name': request.session['user_name'],'user_game_id': request.session['user_game_id']})
+    
+    if request.method == 'POST':
+        
+        game_details = {'player1': request.POST.get('player1'), 
+                        'player2': request.POST.get('player2'),
+                        'player3': request.POST.get('player3'),
+                        'player4': request.POST.get('player4'),
+                        'num_planets': request.POST.get('num_planets'),
+                        'map_width': request.POST.get('map_width'),
+                        'map_height': request.POST.get('map_height'),
+                        'fogofwar': request.POST.get('fogofwar')}
+
+        host.host_new_game(game_details)
+        
+        return redirect('joingame')
     

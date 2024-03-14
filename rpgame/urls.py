@@ -1,11 +1,11 @@
 # rpgame/urls.py
 from django.urls import path
-from .views import loginform, mainmenu, clearsession, joingame
+from .views import loginform, mainmenu, clearsession, joingame, hostgame
 
 urlpatterns = [
     path('', loginform, name='loginform'),
     path('mainmenu.html', mainmenu, name='mainmenu'),
     path('clearsession/', clearsession, name='clearsession'),
     path('joingame.html', joingame, name='joingame'),
-    path('hostgame.html', joingame, name='hostgame'),
+    path('hostgame.html', hostgame, name='hostgame'),
 ]
