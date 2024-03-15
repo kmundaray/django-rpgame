@@ -25,79 +25,87 @@
     <h1>Host a New Game</h1>
     <hr>
 
+    <div class="TEST">
+        {% if user_name %}
+        <p>Player: {{ user_name }}</p>
+        {% endif %}
+        {% if user_game_id %}
+        <p>Game ID: {{ user_game_id }}</p>
+        {% endif %}
+    </div>
+
+
     <!-- Form for hosting a new game -->
-        <div class="row row-content">
-            <div class="col-12">
-            </div>
-            <div class="col-md-10">
-                <!-- form goes here -->
-                <form method="post" action="{% url 'loginform' %}">
-                    {% csrf_token %}
-                    <div class="row mb-3">
-                        <label for="num_planets" class="col-md-2 col-form-label">Number of Planets</label>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="num_planets" name="num_planets" value="30" required>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="map_width" class="col-md-2 col-form-label">Map Width</label>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="map_width" name="map_width" value="20" required>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="map_height" class="col-md-2 col-form-label">Map Height</label>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="map_height" name="map_height" value="20" required>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="player1" class="col-md-2 col-form-label">Player 1</label>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="player1" name="player1" value="{{ user_name }}" disabled>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="player2" class="col-md-2 col-form-label">Player 2</label>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="player2" name="player2" placeholder="" required>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="player3" class="col-md-2 col-form-label">Player 3</label>
-                        <div class="col-5 col-md-10">
-                            <input type="text" class="form-control" id="player3" name="player3" placeholder="">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <label for="player4" class="col-md-2 col-form-label">Player 4</label>
-                        <div class="col-md-10">
-                            <input type="text" class="form-control" id="player4" name="player4" placeholder="">
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col offset-md-2">
-                            <div class="form-check form-check-inline">
-                                <label for="fogofwar" class="form-check-label">Fog of War?</label>
-                                <input type="checkbox" class="form-check-input" id="fogofwar" name="fogofwar" value="True" required checked>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="offset-md-2 col-md-10">
-                            <button type="cancel" class="btn btn-secondary">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Start New Game</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+    <div class="row row-content">
+        <div class="col-12">
         </div>
+        <div class="col-md-10">
+            <!-- form goes here -->
+            <form method="post" action="{% url 'hostgame' %}">
+                {% csrf_token %}
+                <div class="row mb-3">
+                    <label for="num_planets" class="col-md-2 col-form-label">Number of Planets</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="num_planets" name="num_planets" value="30" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="map_width" class="col-md-2 col-form-label">Map Width</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="map_width" name="map_width" value="20" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="map_height" class="col-md-2 col-form-label">Map Height</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="map_height" name="map_height" value="20" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="player1" class="col-md-2 col-form-label">Player 1</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="player1" name="player1" value="{{ user_name }}" disabled>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="player2" class="col-md-2 col-form-label">Player 2</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="player2" name="player2" placeholder="" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="player3" class="col-md-2 col-form-label">Player 3</label>
+                    <div class="col-5 col-md-10">
+                        <input type="text" class="form-control" id="player3" name="player3" placeholder="">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="player4" class="col-md-2 col-form-label">Player 4</label>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" id="player4" name="player4" placeholder="">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col offset-md-2">
+                        <div class="form-check form-check-inline">
+                            <label for="fogofwar" class="form-check-label">Fog of War?</label>
+                            <input type="checkbox" class="form-check-input" id="fogofwar" name="fogofwar" value="True" checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="offset-md-2 col-md-10">
+                        <button type="cancel" class="btn btn-secondary">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Start New Game</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     </div>
 
     {% comment %}
-    mapHeight = st.text_input(label="Map height",value=20)
-    mapWidth = st.text_input(label="Map width",value=20)
-    numPlants = st.text_input(label="Number of planets",value=30)
+    Django template tags are enclosed in {% and %}.
     {% endcomment %}
 
 
@@ -141,7 +149,7 @@
     </script>
 
     <!-- Bootstrap JavaScript plugins -->
-    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="../static/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 
 </body>
 

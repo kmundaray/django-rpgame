@@ -12,9 +12,6 @@ def host_new_game(game_details):
 
     player_list = [user_name, player2, player3, player4]
 
-    #TEST
-    print('HERE>>>>>>>>>>> FOG of WAR', fogofwar)
-    
     if fogofwar:
         fogofwar = 1
     else:
@@ -30,17 +27,5 @@ def host_new_game(game_details):
     
     with connections['default'].cursor() as cursor:
         qstring = f"Call InitializeGame(array{player_list}, {num_planets}, {map_width}, {map_height});"
-        # TEST
-        print('HERE>>>>>>>>>>>', qstring)
         cursor.execute(qstring)
         return True
-
-# TEST
-# print('HERE>>>>>>>>>>>', host_new_game({'player1': 'player1',
-#                                         'player2': 'player2',
-#                                         'player3': 'player3',
-#                                         'player4': 'player4', 
-#                                         'num_planets': 30,
-#                                         'map_width': 20,
-#                                         'map_height': 20,
-#                                         'fogofwar': True}))

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from . import login, host
 # from django.http import HttpRequest
+
 # Create your views here.
 
 # Page form receives user input
@@ -31,36 +32,19 @@ def loginform(request):
 
         return render(request, 'index.html', {'form_not_valid':'Invalid Login Credentials. Please try again.'})
 
-
+# Menu page
 def mainmenu(request):
     if request.method == 'GET':
         return render(request, 'mainmenu.html', {'user_name': request.session['user_name'],'user_game_id': request.session['user_game_id']})
 
-
-def clearsession(request):
-    # Clear the entire session
-    request.session.clear()
-
-    # Optionally, you can also delete specific keys from the session
-    # del request.session['your_key']
-
-    return render(request, 'index.html', {})
-
-def joingame(request):
-    if request.method == 'GET':
-        return render(request, 'joingame.html', {'user_name': request.session['user_name'],'user_game_id': request.session['user_game_id']})
-    
-    # if request.method == 'POST':
-    #     user_ = request.POST.get('')
-    #     user_ = request.POST.get('')
-
+# Host new game page
 def hostgame(request):
     if request.method == 'GET':
         return render(request, 'hostgame.html', {'user_name': request.session['user_name'],'user_game_id': request.session['user_game_id']})
     
     if request.method == 'POST':
         
-        game_details = {'player1': request.POST.get('player1'), 
+        game_details = {'player1': request.session['user_name'], 
                         'player2': request.POST.get('player2'),
                         'player3': request.POST.get('player3'),
                         'player4': request.POST.get('player4'),
@@ -70,6 +54,26 @@ def hostgame(request):
                         'fogofwar': request.POST.get('fogofwar')}
 
         host.host_new_game(game_details)
-        
+
         return redirect('joingame')
+
+# Join a game page
+def joingame(request):
+
+    return render(request, 'joingame.html', {'user_name': request.session['user_name'],'user_game_id': request.session['user_game_id']})
+    # if request.method == 'GET':
+    #     return render(request, 'joingame.html', {'user_name': request.session['user_name'],'user_game_id': request.session['user_game_id']})
     
+    # if request.method == 'POST':
+    #     user_ = request.POST.get('')
+    #     user_ = request.POST.get('')
+
+# Log out function
+def clearsession(request):
+    # Clear the entire session
+    request.session.clear()
+
+    # Optionally, you can also delete specific keys from the session
+    # del request.session['your_key']
+
+    return render(request, 'index.html', {})
