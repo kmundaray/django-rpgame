@@ -9,63 +9,61 @@
     <!-- Bootstrap CSS -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}" />
+
     <!-- Stylesheet -->
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-
 
     <title>RP Game - Main Menu</title>
 </head>
 
 <body>
 
-    <!-- // Reload button // -->
-    <button id="reloadButton">Refresh Page</button>
-
-    <h1>Main Menu</h1>
-
-    {% comment %}
-    Django template tags are enclosed in {% and %}.
-    Use these tags to insert dynamic content or perform logic.
-    {% endcomment %}
-
-
-    <div class="TEST">
-        {% if user_name %}
-        <p>Player: {{ user_name }}</p>
-        {% endif %}
-        {% if user_game_id %}
-        <p>Game ID: {{ user_game_id }}</p>
-        {% endif %}
-    </div>
-
     <!-- Main menu options -->
-
-
-    <section class="col col-md-4 col-xl-2 mt-4">
-        <form action="{% url 'hostgame' %}" method="get">
-            {% csrf_token %}
-            <button type="submit" id="hostgame">Host a Game</button>
-        </form>
+    <section class="container container-fluid">
+        <div class="row row-content text-center">
+            <div class="col col-md-9 mt-4">
+                <h1>Main Menu</h1>
+                <hr>
+            </div>
+        </div>
+        <div class="row row-content">
+            <div class="col col-md-3">
+                {% if user_name %}
+                <p>Player: {{ user_name }}</p>
+                {% endif %}
+                {% if user_game_id %}
+                <p>Game ID: {{ user_game_id }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row row-content text-center">
+            <div class="col col-md-3 mt-1">
+                <form action="{% url 'hostgame' %}" method="get">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" id="hostgame">Host a Game</button>
+                </form>
+            </div>
+            <div class="col col-md-3 mt-1">
+                <form action="{% url 'joingame' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" id="joingamebutton">Join a Game</button>
+                </form>
+            </div>
+            <!-- Clears session state -->
+            <div class="col col-md-3 mt-1">
+                <form action="{% url 'clearsession' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary" id="logoutbutton">Log Out</button>
+                </form>
+            </div>
+        </div>
+        <div class="row row-content text-center">
+            <div class="col col-md-9 mt-4">
+                <!-- // Placeholder // -->
+            </div>
+        </div>
     </section>
-
-    <section class="col col-md-4 col-xl-2 mt-4">
-        <form action="{% url 'joingame' %}" method="post">
-            {% csrf_token %}
-            <button type="submit" id="joingamebutton">Join a Game</button>
-        </form>
-    </section>
-
-    <!-- Clears session state -->
-    <div class="col col-md-4 col-xl-2 mt-4">
-        <form action="{% url 'clearsession' %}" method="post">
-            {% csrf_token %}
-            <button type="submit" id="logoutbutton">Log Out</button>
-        </form>
-    </div>
-
-
-
 
 
 
@@ -88,29 +86,10 @@
             // socket.send('Hello, WebSocket!');
         };
 
-        // Function to reload the page
-        function reloadPage() {
-            location.reload();
-        }
-
-        // Event listener for the button click
-        document.getElementById('reloadButton').onclick = function () {
-            reloadPage();
-        };
-
-        // Function to reload the page every 5 seconds (adjust as needed)
-        // function autoRefresh() {
-        //     location.reload();
-        // }
-
-        // SetInterval to call the autoRefresh function every 5000 milliseconds (5 seconds)
-        // setInterval(autoRefresh, 5000);
-
         socket.onclose = function (event) {
             // Handle WebSocket closure, if needed
             console.log('WebSocket closed:', event);
         };
-
     </script>
 
     <!-- Bootstrap JavaScript plugins -->

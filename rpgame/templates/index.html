@@ -18,33 +18,46 @@
 
 <body>
 
-    <h1>Welcome to the RP Game project</h1>
-
     {% comment %}
     Django template tags are enclosed in {% and %}.
     Use these tags to insert dynamic content or perform logic.
     {% endcomment %}
 
     <!-- Form for user input -->
-    <form method="post" action="{% url 'loginform' %}">
-        {% csrf_token %}
-        <label for="user_login">Login:</label>
-        <input type="text" id="user_login" name="user_login">
-        <label for="user_password">Password:</label>
-        <input type="text" id="user_password" name="user_password">
-        <div>
-            <button type="reset" id="resetform">Cancel</button>
-            <button type="submit" id="submitlogin">Login</button>
+    <section class="container container-fluid">
+        <div class="row row-content">
+            <div class="col text-center">
+                <h1>Welcome to the RP Game project</h1>
+                <hr>
+            </div>
         </div>
-    </form>
-
-    <!-- Display form validation errors -->
-    <div class="loginmessage">
-        {% if form_not_valid %}
-        <p>{{ form_not_valid }}</p>
-        {% endif %}
-    </div>
-
+        <div class="row row-content">
+            <div class="col-md-8 col-lg-6">
+                <form method="post" action="{% url 'loginform' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="user_login" class="form-label">Login: </label>
+                        <input type="text" class="form-control" id="user_login" aria-describedby="loginHelp" name="user_login">
+                        <div id="loginHelp" class="form-text">If the user does not exist, a new one will be created.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="user_password" class="form-label">Password: </label>
+                        <input type="password" class="form-control" id="user_password" name="user_password">
+                    </div>
+                    <button type="reset" class="btn btn-secondary" id="resetform">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="submitlogin">Log in</button>
+                </form>
+            </div>
+            <div class="col-md-8 col-lg-6">
+                <!-- Display form validation errors -->
+                <div class="loginmessage">
+                    {% if form_not_valid %}
+                    <p>{{ form_not_valid }}</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Some other content -->
 
@@ -59,6 +72,7 @@
         // Clear the session on page load
         sessionStorage.clear();
     </script>
+    
     <script>
         // WebSocket connection code (if applicable)
         const socket = new WebSocket('ws://' + window.location.host + '/ws/RpGameConsumer/');
