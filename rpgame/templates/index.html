@@ -13,7 +13,7 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 
-    <title>RP Game</title>
+    <title>RP Game - Login</title>
 </head>
 
 <body>
@@ -64,7 +64,16 @@
 
 
 
-
+    <!-- footer -->
+    <footer>
+        <div class="container mt-4 text-center">
+            <div class="row">
+                <div class="col">
+                    <p>2024 RealPage <br> &copy; All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
     <!-- // WebSocket connection script // Javascript code // -->
@@ -72,7 +81,7 @@
         // Clear the session on page load
         sessionStorage.clear();
     </script>
-    
+
     <script>
         // WebSocket connection code (if applicable)
         const socket = new WebSocket('ws://' + window.location.host + '/ws/RpGameConsumer/');
@@ -91,7 +100,7 @@
     </script>
 
     <!-- Bootstrap JavaScript plugins -->
-    <script src="../static/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="rpgame/static/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 
 </body>
 

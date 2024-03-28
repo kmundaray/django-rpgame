@@ -164,3 +164,6 @@ node_modules
 dist
 .parcel-cache
 .firebase
+
+# Folders
+/#archived

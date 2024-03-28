@@ -19,48 +19,203 @@
 
 <body>
 
+    <!-- Host Game Modal -->
+    <div class="modal fade" id="hostModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Host a New Game</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid text-nowrap">
+                        <div class="row">
+                            <div class="mb-3 col-12">
+                                <!-- form goes here -->
+                                <form method="post" action="{% url 'hostgame' %}">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="num_planets" class="col-md-2 col-form-label">Number of Planets</label>
+                                            <input type="text" class="form-control" id="num_planets" name="num_planets" value="30" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="map_width" class="col-md-2 col-form-label">Map Width</label>
+                                            <input type="text" class="form-control" id="map_width" name="map_width" value="20" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="map_height" class="col-md-2 col-form-label">Map Height</label>
+                                            <input type="text" class="form-control" id="map_height" name="map_height" value="20" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="player1" class="col-md-2 col-form-label">Player 1</label>
+                                            <input type="text" class="form-control" id="player1" name="player1" value="{{ user_name }}"
+                                                disabled>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="player2" class="col-md-2 col-form-label">Player 2</label>
+                                            <input type="text" class="form-control" id="player2" name="player2" placeholder="" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="player3" class="col-md-2 col-form-label">Player 3</label>
+                                            <input type="text" class="form-control" id="player3" name="player3" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="player4" class="col-md-2 col-form-label">Player 4</label>
+                                            <input type="text" class="form-control" id="player4" name="player4" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col mt-3">
+                                            <div class="form-check form-check-inline">
+                                                <label for="fogofwar" class="form-check-label">Fog of War?</label>
+                                                <input type="checkbox" class="form-check-input" id="fogofwar" name="fogofwar" value="True"
+                                                    checked>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Start New Game</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Join Game Modal -->
+    <div class="modal fade" id="joinGame">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Join a Game</h3>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid text-nowrap">
+                        <div class="row">
+                            <div class="mb-3 col-12">
+                                <!-- form for joining a game ID -->
+                                <form method="post" action="{% url 'playgame' %}">
+                                    {% csrf_token %}
+                                    <div class="row mb-3">
+                                        <label for="joingameid" class="col-md-2 col-form-label">Game ID: </label>
+                                        <div class="col-md-10">
+                                            {% if user_game_id %}
+                                            <input type="text" class="form-control" id="joingameid" name="joingameid"
+                                                value="{{ user_game_id }}">
+                                            {% else %}
+                                            <input type="text" class="form-control" id="joingameid" name="joingameid"
+                                                value="You must be part of a game to join it" disabled>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-10">
+                                            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            {% if user_game_id %}
+                                            <button type="submit" class="btn btn-primary">Start Game</button>
+                                            {% else %}
+                                            <button type="submit" class="btn btn-primary" disabled>Start Game</button>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
     <!-- Main menu options -->
-    <section class="container container-fluid">
-        <div class="row row-content text-center">
-            <div class="col col-md-9 mt-4">
+    <section class="container-fluid vertical-center">
+        <div class="row row-content justify-content-center">
+            <div class="col-md-6 text-center mt-4">
                 <h1>Main Menu</h1>
                 <hr>
             </div>
         </div>
-        <div class="row row-content">
-            <div class="col col-md-3">
+        <div class="row row-content justify-content-center">
+            <div class="col-md-6 text-center activeuser">
                 {% if user_name %}
                 <p>Player: {{ user_name }}</p>
                 {% endif %}
                 {% if user_game_id %}
-                <p>Game ID: {{ user_game_id }}</p>
+                <p>Last Game ID: {{ user_game_id }}</p>
                 {% endif %}
             </div>
         </div>
-        <div class="row row-content text-center">
-            <div class="col col-md-3 mt-1">
-                <form action="{% url 'hostgame' %}" method="get">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary" id="hostgame">Host a Game</button>
-                </form>
+        <div class="row row-content justify-content-center">
+            <div class="col-md-2 text-center">
+                <button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#hostModal"
+                    id="hostgamebutton">Host a Game
+                </button>
             </div>
-            <div class="col col-md-3 mt-1">
-                <form action="{% url 'joingame' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary" id="joingamebutton">Join a Game</button>
-                </form>
+            <div class="col-md-2 text-center">
+                <button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#joinGame"
+                    id="joingamebutton">Join a Game
+                </button>
             </div>
             <!-- Clears session state -->
-            <div class="col col-md-3 mt-1">
-                <form action="{% url 'clearsession' %}" method="post">
+            <div class="col-md-2 text-center">
+                <form action="{% url 'clearsession' %}" method="get">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-secondary" id="logoutbutton">Log Out</button>
                 </form>
             </div>
         </div>
-        <div class="row row-content text-center">
-            <div class="col col-md-9 mt-4">
+        <div class="row row-content justify-content-center">
+            <div class="col-md-6 text-center">
                 <!-- // Placeholder // -->
+            </div>
+        </div>
+    </section>
+
+
+    <section class="container-fluid vertical-center" id="availablegames">
+        <div class="row row-content justify-content-center">
+            <div class="col-md-6 text-center">
+                <h3>Available Game IDs</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Game ID</th>
+                            <th scope="col">Turn Completed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in game_list %}
+                        <tr>
+                            <td>{{ item.game_id }}</td>
+                            <td>{{ item.turn_completed }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
@@ -68,13 +223,22 @@
 
 
 
-
+    <!-- footer -->
+    <footer>
+        <div class="container mt-4 text-center">
+            <div class="row">
+                <div class="col">
+                    <p>2024 RealPage <br> &copy; All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
 
     <!-- // WebSocket connection script // Javascript code // -->
     <script>
         // Clear the session on page load
-        sessionStorage.clear();
+        // sessionStorage.clear();
 
         // WebSocket connection code (if applicable)
         const socket = new WebSocket('ws://' + window.location.host + '/ws/RpGameConsumer/');
@@ -93,7 +257,8 @@
     </script>
 
     <!-- Bootstrap JavaScript plugins -->
-    <script src="../static/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="rpgame/static/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
 
 </body>
 

@@ -1,0 +1,21 @@
+html {
+    background-color: white;
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1 {
+    color: orange;
+}
+
+#availablegames {
+    margin-top: 100px;
+}
+
+footer{
+    margin-top: auto;
+}
