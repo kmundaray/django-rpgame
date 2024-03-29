@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'node_modules/bootstrap/dist/css/bootstrap.min.css' %}" />
+
     <!-- Stylesheet -->
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
@@ -18,22 +19,101 @@
 
 <body>
 
-    <section class="container container-fluid">
-        <div class="row row-content text-center">
-            <div class="col col-md-8 col-lg-6">
-                <h1>Plafield</h1>
-                <hr>
-                <div class="activeuser">
-                    {% if user_name %}
-                    <p>Player: {{ user_name }}</p>
-                    {% endif %}
-                    {% if user_game_id %}
-                    <p>Game ID: {{ user_game_id }}</p>
-                    {% endif %}
+    <section class="container container-fluid playgame">
+            <div class="row row-content text-center">
+                <div class="col">
+                    <h1>Playfield</h1>
+                    <hr>
+                    <div class="activeuser">
+                        {% if user_name %}
+                        <p>Player: {{ user_name }}</p>
+                        {% endif %}
+                        {% if user_game_id %}
+                        <p>Playing Game ID: {{ user_game_id }}</p>
+                        {% endif %}
+                        {% if game_turn %}
+                        <p>Game Turn: {{ game_turn }}</p>
+                        {% endif %}
+                    </div>
                 </div>
+            </div>
+            <div class="row row-content justify-content-center">
+                <div class="col-md-2 text-center">
+                    <button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#hostModal"
+                        id="hostgamebutton">Send Ships
+                    </button>
+                </div>
+                <div class="col-md-2 text-center">
+                    <button type="button" class="btn btn-warning text-nowrap" data-bs-toggle="modal" data-bs-target="#hostModal"
+                        id="sendshipsbutton">Finish Turn
+                    </button>
+                </div>
+                <div class="col-md-2 text-center">
+                        <button type="button" class="btn btn-primary text-nowrap" onclick="window.location.href = '{% url 'mainmenu' %}'" id="mainmenubutton">Main Menu</button>
+                </div>
+                <!-- Clears session state -->
+                <div class="col-md-2 text-center">
+                    <button type="button" class="btn btn-secondary text-nowrap" onclick="window.location.href = '{% url 'clearsession' %}'" id="logoutbutton">Log Out</button>
+                </div>
+            </div>
+    </section>
+
+
+    <section class="container container-fluid text-center playgame" id="playfield">
+        <div class="row row-content">
+            <div class="col-12" id="mapDisplay">
+                {% if map_display_str %}
+                <p>{{ map_display_str }}</p>
+                {% endif %}
+            </div>
+            <div class="col-6" id="gameStats">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Planet Character</th>
+                            <th scope="col">Owner</th>
+                            <th scope="col">Ship Count</th>
+                            <th scope="col">Allocated Ships</th>
+                            <th scope="col">Ship Production</th>
+                            <th scope="col">Planet Defense</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in game_display_stats %}
+                        <tr>
+                            <td>{{ item.display_character }}</td>
+                            <td>{{ item.owner_done }}</td>
+                            <td>{{ item.ships }}</td>
+                            <td>{{ item.allocated_ships }}</td>
+                            <td>{{ item.production }}</td>
+                            <td>{{ item.defense }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row row-content playgame">
+            <div class="col playgame">
+                stuff
+            </div>
+            <div class="col playgame">
+                stuff
+            </div>
+
+        </div>
+        <div class="row row-content playgame">
+            <div class="col playgame">
+                stuff
+            </div>
+            <div class="col playgame">
+                stuff
             </div>
         </div>
     </section>
+
+
+
 
 
 
@@ -62,12 +142,12 @@
         };
 
         // Function to reload the page every 5 seconds (adjust as needed)
-        // function autoRefresh() {
-        //     location.reload();
-        // }
+        function autoRefresh() {
+            location.reload();
+        }
 
         // SetInterval to call the autoRefresh function every 5000 milliseconds (5 seconds)
-        // setInterval(autoRefresh, 10000);
+        setInterval(autoRefresh, 15000);
 
         socket.onclose = function (event) {
             // Handle WebSocket closure, if needed
@@ -76,7 +156,8 @@
     </script>
 
     <!-- Bootstrap JavaScript plugins -->
-    <script src="../static/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="rpgame/static/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+
 
 </body>
 

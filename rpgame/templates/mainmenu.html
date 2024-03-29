@@ -152,51 +152,51 @@
 
 
     <!-- Main menu options -->
-    <section class="container-fluid vertical-center">
-        <div class="row row-content justify-content-center">
-            <div class="col-md-6 text-center mt-4">
-                <h1>Main Menu</h1>
-                <hr>
+    <section class="container container-fluid vertical-center playgame">
+            <div class="row row-content justify-content-center ">
+                <div class="col-md-6 text-center mt-4">
+                    <h1>Main Menu</h1>
+                    <hr>
+                </div>
             </div>
-        </div>
-        <div class="row row-content justify-content-center">
-            <div class="col-md-6 text-center activeuser">
-                {% if user_name %}
-                <p>Player: {{ user_name }}</p>
-                {% endif %}
-                {% if user_game_id %}
-                <p>Last Game ID: {{ user_game_id }}</p>
-                {% endif %}
+            <div class="row row-content justify-content-center">
+                <div class="col-md-6 text-center activeuser">
+                    {% if user_name %}
+                    <p>Player: {{ user_name }}</p>
+                    {% endif %}
+                    {% if user_game_id %}
+                    <p>Last Game ID: {{ user_game_id }}</p>
+                    {% endif %}
+                </div>
             </div>
-        </div>
-        <div class="row row-content justify-content-center">
-            <div class="col-md-2 text-center">
-                <button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#hostModal"
-                    id="hostgamebutton">Host a Game
-                </button>
+            <div class="row row-content justify-content-center">
+                <div class="col-md-2 text-center">
+                    <button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#hostModal"
+                        id="hostgamebutton">Host a Game
+                    </button>
+                </div>
+                <div class="col-md-2 text-center">
+                    <button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#joinGame"
+                        id="joingamebutton">Join a Game
+                    </button>
+                </div>
+                <!-- Clears session state -->
+                <div class="col-md-2 text-center">
+                    <form action="{% url 'clearsession' %}" method="get">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-secondary" id="logoutbutton">Log Out</button>
+                    </form>
+                </div>
             </div>
-            <div class="col-md-2 text-center">
-                <button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#joinGame"
-                    id="joingamebutton">Join a Game
-                </button>
+            <div class="row row-content justify-content-center">
+                <div class="col-md-6 text-center">
+                    <!-- // Placeholder // -->
+                </div>
             </div>
-            <!-- Clears session state -->
-            <div class="col-md-2 text-center">
-                <form action="{% url 'clearsession' %}" method="get">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-secondary" id="logoutbutton">Log Out</button>
-                </form>
-            </div>
-        </div>
-        <div class="row row-content justify-content-center">
-            <div class="col-md-6 text-center">
-                <!-- // Placeholder // -->
-            </div>
-        </div>
     </section>
 
 
-    <section class="container-fluid vertical-center" id="availablegames">
+    <section class="container container-fluid vertical-center playgame" id="availablegames">
         <div class="row row-content justify-content-center">
             <div class="col-md-6 text-center">
                 <h3>Available Game IDs</h3>

@@ -1,0 +1,116 @@
+// Import Bootstrap SCSS
+//@import '/rpgame/static/node_modules/bootstrap/scss/bootstrap.scss';
+
+// Custom styles
+$body-bg: #F7F5ED;
+$page-title: orange;
+$page-text: #58586F;
+$btn-submit: #0082A6;
+$btn-cancel: #9CA1B3;
+$btn-submit-hover-color: #86B9C7;
+$btn-cancel-hover-color: #C4DEE3;
+// Base font styles
+$base-font-family: Arial, sans-serif;
+$base-line-height: 1.5;
+$font-regular: 400;
+$font-bold: 700;
+
+// HTML Styles
+html {
+    background-color: $body-bg;
+}
+
+// Header
+header {
+    background-color: $body-bg;
+    color: $page-text;
+    padding: 20px;
+}
+
+// Body
+body {
+    color: $page-text;
+    background-color: $body-bg;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // Font
+    font-family: $base-font-family;
+    line-height: $base-line-height;
+}
+
+h1 {
+    color: $page-title;
+    font-weight: $font-bold;
+}
+
+// Main Content
+.activeuser {
+    font-weight: bold;
+}
+
+#availablegames {
+    margin-top: 50px;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.btn-primary {
+    background-color: $btn-submit;
+    border: $body-bg solid 1px;
+
+    &:hover {
+        background-color: $btn-submit-hover-color;
+        border: $btn-submit solid 2px;
+    }
+}
+
+.btn-secondary {
+    background-color: $btn-cancel;
+    border: $body-bg solid 1px;
+
+    &:hover {
+        background-color: $btn-cancel-hover-color;
+        border: $btn-submit solid 2px;
+    }
+}
+
+.btn-warning {
+    color: $body-bg;
+    border: $body-bg solid 1px;
+
+    &:hover {
+        color: red;
+        background-color: $btn-cancel-hover-color;
+        border: $btn-submit solid 2px;
+    }
+}
+
+.playgame {
+    border: solid 1px $page-title;
+    margin: 50px;
+    padding: 50px;
+}
+
+#gameStats {
+    border: solid 1px $page-title;
+}
+
+#mapDisplay {
+    border: solid 1px $page-title;
+}
+
+#playfield {
+    width: auto;
+}
+
+// Footer
+footer {
+    background-color: $body-bg;
+    color: $page-text;
+    padding: 20px;
+    margin-top: 300px;
+}
