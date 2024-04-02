@@ -40,6 +40,7 @@ def play_game(request):
         game_details = {'user_name': request.session['user_name'], 
                         'user_game_id': request.session['user_game_id']}
         playfield = play.play_game(game_details)
+        request.session['user_game_id'] = game_details['user_game_id']
         #Need to add to return all the data from the game
         return render(request, 'playgame.html', playfield)
         
@@ -48,6 +49,7 @@ def play_game(request):
         game_details = {'user_name': request.session['user_name'], 
                         'user_game_id': request.POST.get('joingameid')}
         playfield = play.play_game(game_details)
+        request.session['user_game_id'] = game_details['user_game_id']
         #Need to add to return all the data from the game
         return render(request, 'playgame.html', playfield)
 

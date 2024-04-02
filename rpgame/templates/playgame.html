@@ -20,96 +20,123 @@
 <body>
 
     <section class="container container-fluid playgame">
-            <div class="row row-content text-center">
-                <div class="col">
-                    <h1>Playfield</h1>
-                    <hr>
-                    <div class="activeuser">
-                        {% if user_name %}
-                        <p>Player: {{ user_name }}</p>
-                        {% endif %}
-                        {% if user_game_id %}
-                        <p>Playing Game ID: {{ user_game_id }}</p>
-                        {% endif %}
-                        {% if game_turn %}
-                        <p>Game Turn: {{ game_turn }}</p>
-                        {% endif %}
-                    </div>
+        <div class="row row-content text-center">
+            <div class="col">
+                <h1>Playfield</h1>
+                <hr>
+                <div class="activeuser">
+                    {% if user_name %}
+                    <p>Player: {{ user_name }}</p>
+                    {% endif %}
+                    {% if user_game_id %}
+                    <p>Playing Game ID: {{ user_game_id }}</p>
+                    {% endif %}
+                    {% if game_turn %}
+                    <p>Game Turn: {{ game_turn }}</p>
+                    {% endif %}
                 </div>
             </div>
-            <div class="row row-content justify-content-center">
-                <div class="col-md-2 text-center">
-                    <button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#hostModal"
-                        id="hostgamebutton">Send Ships
-                    </button>
-                </div>
-                <div class="col-md-2 text-center">
-                    <button type="button" class="btn btn-warning text-nowrap" data-bs-toggle="modal" data-bs-target="#hostModal"
-                        id="sendshipsbutton">Finish Turn
-                    </button>
-                </div>
-                <div class="col-md-2 text-center">
-                        <button type="button" class="btn btn-primary text-nowrap" onclick="window.location.href = '{% url 'mainmenu' %}'" id="mainmenubutton">Main Menu</button>
-                </div>
-                <!-- Clears session state -->
-                <div class="col-md-2 text-center">
-                    <button type="button" class="btn btn-secondary text-nowrap" onclick="window.location.href = '{% url 'clearsession' %}'" id="logoutbutton">Log Out</button>
-                </div>
+        </div>
+        <div class="row row-content justify-content-center">
+            <div class="col-md-2 text-center">
+                <button type="button" class="btn btn-primary text-nowrap" onclick="window.location.href = '{% url 'mainmenu' %}'"
+                    id="mainmenubutton">Main Menu</button>
             </div>
+            <!-- Clears session state -->
+            <div class="col-md-2 text-center">
+                <button type="button" class="btn btn-secondary text-nowrap" onclick="window.location.href = '{% url 'clearsession' %}'"
+                    id="logoutbutton">Log Out</button>
+            </div>
+        </div>
     </section>
 
 
     <section class="container container-fluid text-center playgame" id="playfield">
-        <div class="row row-content">
-            <div class="col-12" id="mapDisplay">
-                {% if map_display_str %}
-                <p>{{ map_display_str }}</p>
-                {% endif %}
-            </div>
-            <div class="col-6" id="gameStats">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Planet Character</th>
-                            <th scope="col">Owner</th>
-                            <th scope="col">Ship Count</th>
-                            <th scope="col">Allocated Ships</th>
-                            <th scope="col">Ship Production</th>
-                            <th scope="col">Planet Defense</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in game_display_stats %}
-                        <tr>
-                            <td>{{ item.display_character }}</td>
-                            <td>{{ item.owner_done }}</td>
-                            <td>{{ item.ships }}</td>
-                            <td>{{ item.allocated_ships }}</td>
-                            <td>{{ item.production }}</td>
-                            <td>{{ item.defense }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <div class="row row-content justify-content-center">
+            <!-- Display Map -->
+            <div class="col-12 col-xl-7" id="mapDisplay">
+                <div class="row row-content justify-content-center">
+                    <pre>
+                        {% if map_display_str %}
+                        <p>{{ map_display_str }}</p>
+                        {% endif %}
+                    </pre>
+                </div>
+                <div class="row row-content justify-content-center">
+                    <div class="col-6 text-center mb-2">
+                        <form method="post" action="{% url 'playgame' %}" class="text-nowrap">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-primary text-nowrap" id="sendShipsButton">Send Ships</button>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <label for="source_planet" class="col col-form-label">Source Planet</label>
+                                    <input type="text" class="form-control" id="source_planet" name="source_planet" value="" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="destination_planet" class="col col-form-label">Destination Planet</label>
+                                    <input type="text" class="form-control" id="destination_planet" name="destination_planet" value="" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="fleet_size" class="col col-form-label">Fleet Size</label>
+                                    <input type="text" class="form-control" id="fleet_size" name="fleet_size" value="" required>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+                <div class="col-6 text-center">
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-warning text-nowrap" id="sendshipsbutton">Finish Turn</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row row-content playgame">
+        <!-- Planet List -->
+        <div class="col-12 col-xl-5 mx-auto" id="gameStats">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Planet Character</th>
+                        <th scope="col">Owner</th>
+                        <th scope="col">Ship Count</th>
+                        <th scope="col">Allocated Ships</th>
+                        <th scope="col">Ship Production</th>
+                        <th scope="col">Planet Defense</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in game_display_stats %}
+                    <tr>
+                        <td>{{ item.display_character }}</td>
+                        <td>{{ item.owner_done }}</td>
+                        <td>{{ item.ships }}</td>
+                        <td>{{ item.allocated_ships }}</td>
+                        <td>{{ item.production }}</td>
+                        <td>{{ item.defense }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+        <div class="row row-content justify-content-center playgame">
             <div class="col playgame">
                 stuff
             </div>
             <div class="col playgame">
                 stuff
             </div>
+        </div>
 
-        </div>
-        <div class="row row-content playgame">
-            <div class="col playgame">
-                stuff
-            </div>
-            <div class="col playgame">
-                stuff
-            </div>
-        </div>
     </section>
 
 

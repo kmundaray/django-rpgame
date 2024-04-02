@@ -14,7 +14,7 @@ def play_game(game_details):
         cursor.execute(qstring)
         qresult = cursor.fetchall()
         for row in qresult:
-            map_display_str += str(row[0])
+            map_display_str += str(row[0]) + "\n"
 
         qstring = f"SELECT Turn FROM Game WHERE GameId = {join_game_id} LIMIT 1;"
         cursor.execute(qstring)
@@ -25,25 +25,34 @@ def play_game(game_details):
         qstring = f"SELECT ShowPlanetList('{user_name}', {join_game_id});"
         cursor.execute(qstring)
         qresult = cursor.fetchall()
-        for row in qresult[0][0]:
-            display_character = row['displaycharacter']
-            owner_done = row['ownerdone']
-            ships = row['ships']
-            allocated_ships = row['allocatedships']
-            production = row['production']
-            defense = row['defense']
-            if owner_done is None:
-                owner_done = "-"
-            game_display_stats.append({'display_character':display_character
-                                        ,'owner_done':owner_done
-                                        ,'ships': ships
-                                        ,'allocated_ships': allocated_ships
-                                        ,'production': production
-                                        ,'defense': defense
-                                        })
+        if qresult[0][0] is not None:
+            for row in qresult[0][0]:
+                display_character = row['displaycharacter']
+                owner_done = row['ownerdone']
+                ships = row['ships']
+                allocated_ships = row['allocatedships']
+                production = row['production']
+                defense = row['defense']
+                if owner_done is None:
+                    owner_done = "-"
+                game_display_stats.append({'display_character':display_character
+                                            ,'owner_done':owner_done
+                                            ,'ships': ships
+                                            ,'allocated_ships': allocated_ships
+                                            ,'production': production
+                                            ,'defense': defense
+                                            })
+        else:
+            game_display_stats.append({'display_character':'-'
+                                    ,'owner_done':'-'
+                                    ,'ships': '-'
+                                    ,'allocated_ships': '-'
+                                    ,'production': '-'
+                                    ,'defense': '-'
+                                    })
 
     sorted_game_display_stats = sorted(game_display_stats, key=lambda x: x['display_character'])
-    
+
     game_details['user_name'] = user_name
     game_details['user_game_id'] = join_game_id
     game_details['map_display_str'] = map_display_str 

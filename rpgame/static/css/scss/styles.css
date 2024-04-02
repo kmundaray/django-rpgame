@@ -1,0 +1,93 @@
+html {
+  background-color: #F7F5ED;
+}
+
+header {
+  background-color: #F7F5ED;
+  color: #58586F;
+  padding: 20px;
+}
+
+body {
+  color: #58586F;
+  background-color: #F7F5ED;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  line-height: 1.5;
+}
+
+h1 {
+  color: orange;
+  font-weight: 700;
+}
+
+.activeuser {
+  font-weight: bold;
+}
+
+#availablegames {
+  margin-top: 50px;
+}
+
+.main-content {
+  padding: 20px;
+}
+
+.btn-primary {
+  background-color: #0082A6;
+  border: #F7F5ED solid 1px;
+}
+.btn-primary:hover {
+  background-color: #86B9C7;
+  border: #0082A6 solid 2px;
+}
+
+.btn-secondary {
+  background-color: #9CA1B3;
+  border: #F7F5ED solid 1px;
+}
+.btn-secondary:hover {
+  background-color: #C4DEE3;
+  border: #0082A6 solid 2px;
+}
+
+.btn-warning {
+  color: #F7F5ED;
+  border: #F7F5ED solid 1px;
+}
+.btn-warning:hover {
+  color: red;
+  background-color: #C4DEE3;
+  border: #0082A6 solid 2px;
+}
+
+.playgame {
+  border: solid 1px orange;
+  margin: 0px;
+  padding: 0px;
+}
+
+#gameStats {
+  border: solid 1px orange;
+}
+
+#mapDisplay {
+  border: solid 1px orange;
+}
+
+#playfield {
+  width: auto;
+  margin: auto;
+}
+
+footer {
+  background-color: #F7F5ED;
+  color: #58586F;
+  padding: 10px;
+  margin-top: 300px;
+}
+
+/*# sourceMappingURL=styles.css.map */
