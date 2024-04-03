@@ -80,9 +80,18 @@
                                     <div class="row">
                                         <div class="col mt-3">
                                             <div class="form-check form-check-inline">
-                                                <label for="fogofwar" class="form-check-label">Fog of War?</label>
-                                                <input type="checkbox" class="form-check-input" id="fogofwar" name="fogofwar" value="True"
-                                                    checked>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="fog_of_war" checked>
+                                                    <label class="form-check-label" for="inlineRadio1">Fog of War</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="opponents_hidden">
+                                                    <label class="form-check-label" for="inlineRadio2">Opponents Hidden</label>
+                                                </div>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="all_hidden">
+                                                    <label class="form-check-label" for="inlineRadio3">All Hidden</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -153,46 +162,46 @@
 
     <!-- Main menu options -->
     <section class="container container-fluid vertical-center playgame">
-            <div class="row row-content justify-content-center ">
-                <div class="col-md-6 text-center mt-4">
-                    <h1>Main Menu</h1>
-                    <hr>
-                </div>
+        <div class="row row-content justify-content-center ">
+            <div class="col-md-6 text-center mt-4">
+                <h1>Main Menu</h1>
+                <hr>
             </div>
-            <div class="row row-content justify-content-center">
-                <div class="col-md-6 text-center activeuser">
-                    {% if user_name %}
-                    <p>Player: {{ user_name }}</p>
-                    {% endif %}
-                    {% if user_game_id %}
-                    <p>Last Game ID: {{ user_game_id }}</p>
-                    {% endif %}
-                </div>
+        </div>
+        <div class="row row-content justify-content-center">
+            <div class="col-md-6 text-center activeuser">
+                {% if user_name %}
+                <p>Player: {{ user_name }}</p>
+                {% endif %}
+                {% if user_game_id %}
+                <p>Last Game ID: {{ user_game_id }}</p>
+                {% endif %}
             </div>
-            <div class="row row-content justify-content-center">
-                <div class="col-md-2 text-center">
-                    <button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#hostModal"
-                        id="hostgamebutton">Host a Game
-                    </button>
-                </div>
-                <div class="col-md-2 text-center">
-                    <button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#joinGame"
-                        id="joingamebutton">Join a Game
-                    </button>
-                </div>
-                <!-- Clears session state -->
-                <div class="col-md-2 text-center">
-                    <form action="{% url 'clearsession' %}" method="get">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-secondary" id="logoutbutton">Log Out</button>
-                    </form>
-                </div>
+        </div>
+        <div class="row row-content justify-content-center">
+            <div class="col-md-2 text-center">
+                <button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#hostModal"
+                    id="hostgamebutton">Host a Game
+                </button>
             </div>
-            <div class="row row-content justify-content-center">
-                <div class="col-md-6 text-center">
-                    <!-- // Placeholder // -->
-                </div>
+            <div class="col-md-2 text-center">
+                <button type="button" class="btn btn-primary text-nowrap" data-bs-toggle="modal" data-bs-target="#joinGame"
+                    id="joingamebutton">Join a Game
+                </button>
             </div>
+            <!-- Clears session state -->
+            <div class="col-md-2 text-center">
+                <form action="{% url 'clearsession' %}" method="get">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary" id="logoutbutton">Log Out</button>
+                </form>
+            </div>
+        </div>
+        <div class="row row-content justify-content-center">
+            <div class="col-md-6 text-center">
+                <!-- // Placeholder // -->
+            </div>
+        </div>
     </section>
 
 

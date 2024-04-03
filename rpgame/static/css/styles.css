@@ -15,7 +15,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: Arial, sans-serif;
+  font-family: monospace, Arial, sans-serif;
   line-height: 1.5;
 }
 
@@ -59,34 +59,32 @@ h1 {
   border: #F7F5ED solid 1px;
 }
 .btn-warning:hover {
-  color: red;
   background-color: #C4DEE3;
   border: #0082A6 solid 2px;
-}
-
-.playgame {
-  border: solid 1px orange;
-  margin: 50px;
-  padding: 50px;
-}
-
-#gameStats {
-  border: solid 1px orange;
-}
-
-#mapDisplay {
-  border: solid 1px orange;
+  color: red;
 }
 
 #playfield {
   width: auto;
+  margin: auto;
+}
+
+input[type=radio]:checked {
+  background-color: #0082A6;
+  border-color: #0082A6;
 }
 
 footer {
   background-color: #F7F5ED;
   color: #58586F;
-  padding: 20px;
+  padding: 10px;
   margin-top: 300px;
+}
+
+.playgame {
+  border: solid 1px #F7F5ED;
+  margin: auto;
+  padding: auto;
 }
 
 /*# sourceMappingURL=styles.css.map */

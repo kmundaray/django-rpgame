@@ -67,7 +67,6 @@ def host_game(request):
                         'fogofwar': request.POST.get('fogofwar')}
         play.host_new_game(host_game_details)
         request.session['user_game_id'] = play.get_last_game(request.session['user_name'])
-
         return redirect('playgame')
 
 
@@ -78,3 +77,25 @@ def clear_session(request):
     # Optionally, we can also delete specific keys from the session
     # del request.session['your_key']
     return redirect('loginform')
+
+
+# Send fleets
+def send_ships(request):
+    if request.method == 'POST':
+        command_details = {'user_name': request.session['user_name'],
+                        'user_game_id': request.session['user_game_id'], 
+                        'source_planet': request.POST.get('source_planet'),
+                        'destination_planet': request.POST.get('destination_planet'),
+                        'fleet_size': request.POST.get('fleet_size')
+                        }
+        play.add_command(command_details)
+        return redirect('playgame')
+
+
+# Finish turn
+def finish_turn(request):
+    command_details = {'user_name': request.session['user_name'],
+                    'user_game_id': request.session['user_game_id']
+                    }
+    play.commands_done(command_details)
+    return redirect('playgame')

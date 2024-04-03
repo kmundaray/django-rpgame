@@ -10,7 +10,7 @@ $btn-cancel: #9CA1B3;
 $btn-submit-hover-color: #86B9C7;
 $btn-cancel-hover-color: #C4DEE3;
 // Base font styles
-$base-font-family: Arial, sans-serif;
+$base-font-family: monospace, Arial, sans-serif;
 $base-line-height: 1.5;
 $font-regular: 400;
 $font-bold: 700;
@@ -83,29 +83,30 @@ h1 {
     border: $body-bg solid 1px;
 
     &:hover {
-        color: red;
         background-color: $btn-cancel-hover-color;
         border: $btn-submit solid 2px;
+        color: red;
     }
 }
 
-.playgame {
-    border: solid 1px $page-title;
-    margin: 0px;
-    padding: 0px;
-}
+// #gameStats {
+//     border: solid 1px $page-title;
+// }
 
-#gameStats {
-    border: solid 1px $page-title;
-}
-
-#mapDisplay {
-    border: solid 1px $page-title;
-}
+// #mapDisplay {
+//     border: solid 1px $page-title;
+// }
 
 #playfield {
     width: auto;
     margin: auto;
+}
+
+// Host form 
+// Custom CSS to change color of standard radio buttons
+input[type="radio"]:checked {
+    background-color: $btn-submit; 
+    border-color: $btn-submit; 
 }
 
 // Footer
@@ -114,4 +115,11 @@ footer {
     color: $page-text;
     padding: 10px;
     margin-top: 300px;
+}
+
+// TEMPORARY CONTAINER STYLING 
+.playgame {
+    border: solid 1px $body-bg;
+    margin: auto;
+    padding: auto;
 }
