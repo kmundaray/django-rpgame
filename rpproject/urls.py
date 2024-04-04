@@ -22,5 +22,5 @@ from . import routing
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', include('rpgame.urls')),
-    path('ws/', include(routing.websocket_urlpatterns)),  
+    path('ws/', include(routing.websocket_urlpatterns)),
 ]
