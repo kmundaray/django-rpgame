@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMP_DIR = os.path.join(BASE_DIR, 'rpgame')
@@ -48,15 +49,16 @@ ASGI_APPLICATION = 'rpproject.asgi.application'
 
 CHANNELS_ALLOWED_HOSTS = ['http://127.0.0.1:8000', 'http://localhost:8000', 'rpgame.org']
 
-# CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'channels.layers.InMemoryChannelLayer',
-#         # 'CONFIG': {
-#         #     'hosts': [('localhost', 8000)],
-#         # },
-#         # 'ROUTING': 'example_channels.routing.channel_routing',
-#     }
-# }
+# Typically you might also configure a channel layer that uses Redis or another backend
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

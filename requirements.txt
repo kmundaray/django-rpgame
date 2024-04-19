@@ -2,3 +2,9 @@ Django==5.0.3
 psycopg==3.1.18
 channels==4.0.0
 daphne==4.1.0
+channels_redis==4.2.0
+
+# brew install redis
+# brew services start redis
+# brew services list
+# redis-cli ping

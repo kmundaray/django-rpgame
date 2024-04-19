@@ -39,11 +39,13 @@
         </div>
         <div class="row row-content justify-content-center">
             <div class="col-md-2 text-center">
-                <button type="button" class="btn btn-primary text-nowrap" onclick="window.location.href = '{% url 'mainmenu' %}'" id="mainmenubutton">Main Menu</button>
+                <button type="button" class="btn btn-primary text-nowrap" onclick="window.location.href = '{% url 'mainmenu' %}'"
+                    id="mainmenubutton">Main Menu</button>
             </div>
             <!-- Clears session state -->
             <div class="col-md-2 text-center">
-                <button type="button" class="btn btn-secondary text-nowrap" onclick="window.location.href = '{% url 'clearsession' %}'" id="logoutbutton">Log Out</button>
+                <button type="button" class="btn btn-secondary text-nowrap" onclick="window.location.href = '{% url 'clearsession' %}'"
+                    id="logoutbutton">Log Out</button>
             </div>
         </div>
     </section>
@@ -78,7 +80,8 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="destination_planet" class="col col-form-label">Destination Planet</label>
-                                    <input type="text" class="form-control" id="destination_planet" name="destination_planet" value="" required>
+                                    <input type="text" class="form-control" id="destination_planet" name="destination_planet" value=""
+                                        required>
                                 </div>
                             </div>
                             <div class="row">
@@ -87,72 +90,73 @@
                                     <input type="text" class="form-control" id="fleet_size" name="fleet_size" value="" required>
                                 </div>
                             </div>
-                    </form>
-                </div>
-                <div class="col-6 text-center">
-                    <div class="row">
-                        <div class="col">
-                                <button type="submit" class="btn btn-warning text-nowrap" onclick="window.location.href = '{% url 'finishturn' %}'" id="finishturnbutton">Finish Turn</button>
-                        </div>
+                        </form>
                     </div>
-                    <div class="row row-content">
-                        <div class="col-12">
-                            <div class="mt-5">
-                                {% if user_name %}
-                                <p>Player: {{ user_name }}</p>
-                                {% endif %}
-                                {% if user_game_id %}
-                                <p>Playing Game ID: {{ user_game_id }}</p>
-                                {% endif %}
-                                {% if game_turn %}
-                                <p>Game Turn: {{ game_turn }}</p>
-                                {% endif %}
+                    <div class="col-6 text-center">
+                        <div class="row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-warning text-nowrap"
+                                    onclick="window.location.href = '{% url 'finishturn' %}'" id="finishturnbutton">Finish Turn</button>
+                            </div>
+                        </div>
+                        <div class="row row-content">
+                            <div class="col-12">
+                                <div class="mt-5">
+                                    {% if user_name %}
+                                    <p>Player: {{ user_name }}</p>
+                                    {% endif %}
+                                    {% if user_game_id %}
+                                    <p>Playing Game ID: {{ user_game_id }}</p>
+                                    {% endif %}
+                                    {% if game_turn %}
+                                    <p>Game Turn: {{ game_turn }}</p>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Planet List -->
-        <div class="col-12 col-xl-5 mx-auto" id="gameStats">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Planet Character</th>
-                        <th scope="col">Owner</th>
-                        <th scope="col">Ship Count</th>
-                        <th scope="col">Allocated Ships</th>
-                        <th scope="col">Ship Production</th>
-                        <th scope="col">Planet Defense</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in game_display_stats %}
-                    <tr>
-                        <td>{{ item.display_character }}</td>
-                        <td>{{ item.owner_done }}</td>
-                        <td>{{ item.ships }}</td>
-                        <td>{{ item.allocated_ships }}</td>
-                        <td>{{ item.production }}</td>
-                        <td>{{ item.defense }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="row row-content playgame mt-5">
-            <!-- Display Map -->
-            <h3> Battle Logs</h3>
-            <hr>
-            <div class="col-12" id="battleLogDisplay">
+            <!-- Planet List -->
+            <div class="col-12 col-xl-5 mx-auto" id="gamestats">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Planet Character</th>
+                            <th scope="col">Owner</th>
+                            <th scope="col">Ship Count</th>
+                            <th scope="col">Allocated Ships</th>
+                            <th scope="col">Ship Production</th>
+                            <th scope="col">Planet Defense</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in game_display_stats %}
+                        <tr>
+                            <td>{{ item.display_character }}</td>
+                            <td>{{ item.owner_done }}</td>
+                            <td>{{ item.ships }}</td>
+                            <td>{{ item.allocated_ships }}</td>
+                            <td>{{ item.production }}</td>
+                            <td>{{ item.defense }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="row row-content playgame mt-5">
+                <!-- Display Map -->
+                <h3> Battle Logs</h3>
+                <hr>
+                <div class="col-12" id="battleLogDisplay">
                     <pre>
                         {% if battle_log %}
                         <p>{{ battle_log }}</p>
                         {% endif %}
                     </pre>
+                </div>
             </div>
         </div>
-    </div>
     </section>
 
 
@@ -172,29 +176,49 @@
         </div>
     </footer>
 
+
     <!-- // WebSocket connection script // Javascript code // -->
     <script>
-        // WebSocket connection code (if applicable)
-        const socket = new WebSocket('ws://' + window.location.host + '/ws/RpGameConsumer/');
+        const gameId = {{ user_game_id }};
+        const host = window.location.host;
+        const socket = new WebSocket(`ws://${host}/ws/RpGameConsumer/${gameId}/`);
 
         // Ensure the WebSocket Connection is Open
-        socket.onopen = function (event) {
+        socket.onopen = function () {
             console.log('WebSocket connection opened:', event);
             // You can send an initial message if needed
-            // socket.send('Hello, WebSocket!');
+            socket.send('Player is connected');
+            // Send a ping every 30 seconds to keep the connection open
+            setInterval(() => {
+                if (socket.readyState === WebSocket.OPEN) {
+                    socket.send(JSON.stringify({ type: "ping" }));
+                }
+            }, 1000);
         };
 
-        // Function to reload the page every 5 seconds (adjust as needed)
-        function autoRefresh() {
-            location.reload();
-        }
 
-        // SetInterval to call the autoRefresh function every 5000 milliseconds (5 seconds)
-        setInterval(autoRefresh, 15000);
+        document.getElementById('finishturnbutton').onclick = function () {
+            socket.send(JSON.stringify({ 'action': 'playfield_refresh' }));
+        };
+
+        socket.onmessage = function (e) {
+            const data = JSON.parse(e.data);
+            if (data.action === 'refresh') {
+                // This command refreshes the page
+                window.location.reload();
+            }
+        };
 
         socket.onclose = function (event) {
-            // Handle WebSocket closure, if needed
-            console.log('WebSocket closed:', event);
+            if (event.wasClean) {
+                console.log(`Connection closed cleanly, code=${event.code}, reason=${event.reason}`);
+            } else {
+                console.log('Connection died unexpectedly.');
+            }
+        };
+
+        socket.onerror = function (error) {
+            console.log(`WebSocket error: ${error.message}`);
         };
     </script>
 
