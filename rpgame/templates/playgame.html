@@ -95,8 +95,7 @@
                     <div class="col-6 text-center">
                         <div class="row">
                             <div class="col">
-                                <button type="submit" class="btn btn-warning text-nowrap"
-                                    onclick="window.location.href = '{% url 'finishturn' %}'" id="finishturnbutton">Finish Turn</button>
+                                <button type="submit" class="btn btn-warning text-nowrap" onclick="window.location.href = '{% url 'finishturn' %}'" id="finishturnbutton">Finish Turn</button>
                             </div>
                         </div>
                         <div class="row row-content">
@@ -179,7 +178,8 @@
 
     <!-- // WebSocket connection script // Javascript code // -->
     <script>
-        const gameId = {{ user_game_id }};
+        const gameId = "{{ user_game_id|escapejs }}";
+        const username = "{{ user_name|escapejs }}";
         const host = window.location.host;
         const socket = new WebSocket(`ws://${host}/ws/RpGameConsumer/${gameId}/`);
 
@@ -187,19 +187,22 @@
         socket.onopen = function () {
             console.log('WebSocket connection opened:', event);
             // You can send an initial message if needed
-            socket.send('Player is connected');
+            socket.send('Player "' + username + '" is connected to Game ID ' + gameId);
             // Send a ping every 30 seconds to keep the connection open
             setInterval(() => {
                 if (socket.readyState === WebSocket.OPEN) {
                     socket.send(JSON.stringify({ type: "ping" }));
                 }
-            }, 1000);
+            }, 3000);
         };
 
+        document.getElementById('sendShipsButton').onclick = function () {
+                socket.send(JSON.stringify({ 'action': 'playfield_refresh' }));
+            };
 
         document.getElementById('finishturnbutton').onclick = function () {
-            socket.send(JSON.stringify({ 'action': 'playfield_refresh' }));
-        };
+                socket.send(JSON.stringify({ 'action': 'playfield_refresh' }));
+            };
 
         socket.onmessage = function (e) {
             const data = JSON.parse(e.data);
@@ -207,19 +210,24 @@
                 // This command refreshes the page
                 window.location.reload();
             }
-        };
+            if (data.type === 'heartbeat')
+                return;
+            if (data.type === 'ping') {
+                socket.send(JSON.stringify({ type: "pong" }));
+                return;
+            };
 
-        socket.onclose = function (event) {
-            if (event.wasClean) {
-                console.log(`Connection closed cleanly, code=${event.code}, reason=${event.reason}`);
-            } else {
-                console.log('Connection died unexpectedly.');
-            }
-        };
+            socket.onclose = function (event) {
+                if (event.wasClean) {
+                    console.log(`Connection closed cleanly, code=${event.code}, reason=${event.reason}`);
+                } else {
+                    console.log('Connection died unexpectedly.');
+                }
+            };
 
-        socket.onerror = function (error) {
-            console.log(`WebSocket error: ${error.message}`);
-        };
+            socket.onerror = function (error) {
+                console.log(`WebSocket error: ${error.message}`);
+            };
     </script>
 
     <!-- Bootstrap JavaScript plugins -->

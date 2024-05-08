@@ -250,15 +250,38 @@
         // sessionStorage.clear();
 
         // WebSocket connection code (if applicable)
-        const socket = new WebSocket('ws://' + window.location.host + '/ws/RpGameConsumer/');
+        const username = "{{ user_name|escapejs }}";
+        // const socket = new WebSocket('ws://' + window.location.host + '/ws/RpGameConsumer/');
+        const host = window.location.host;
+        const socket = new WebSocket(`ws://${host}/ws/RpGameConsumer/`);
 
         // Ensure the WebSocket Connection is Open
-        socket.onopen = function (event) {
+        socket.onopen = function () {
             console.log('WebSocket connection opened:', event);
             // You can send an initial message if needed
-            // socket.send('Hello, WebSocket!');
+            socket.send('Player "' + username + '" is connected');
+            // Send a ping every 30 seconds to keep the connection open
+            setInterval(() => {
+                if (socket.readyState === WebSocket.OPEN) {
+                    socket.send(JSON.stringify({ type: "ping" }));
+                }
+            }, 3000);
         };
 
+        socket.onmessage = function (e) {
+            const data = JSON.parse(e.data);
+            if (data.action === 'refresh') {
+                // This command refreshes the page
+                window.location.reload();
+            }
+            if (data.type === 'heartbeat')
+                return;
+            if (data.type === 'ping') {
+                socket.send(JSON.stringify({ type: "pong" }));
+                return;
+            };
+
+        // Ensure the WebSocket Connection is Closed
         socket.onclose = function (event) {
             // Handle WebSocket closure, if needed
             console.log('WebSocket closed:', event);

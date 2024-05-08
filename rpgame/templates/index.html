@@ -82,22 +82,6 @@
         sessionStorage.clear();
     </script>
 
-    <script>
-        // WebSocket connection code (if applicable)
-        const socket = new WebSocket('ws://' + window.location.host + '/ws/RpGameConsumer/');
-
-        // Ensure the WebSocket Connection is Open
-        socket.onopen = function (event) {
-            console.log('WebSocket connection opened:', event);
-            // You can send an initial message if needed
-            // socket.send('Hello, WebSocket!');
-        };
-
-        socket.onclose = function (event) {
-            // Handle WebSocket closure, if needed
-            console.log('WebSocket closed:', event);
-        };
-    </script>
 
     <!-- Bootstrap JavaScript plugins -->
     <script src="rpgame/static/node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>

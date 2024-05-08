@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['rpgame.org', 'localhost', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'daphne',
     "django.contrib.admin",
     "django.contrib.auth",
@@ -42,7 +43,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'rpgame',
-    'channels',
 ]
 
 ASGI_APPLICATION = 'rpproject.asgi.application'
